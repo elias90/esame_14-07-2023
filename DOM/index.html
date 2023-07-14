@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+</head>
+<body>
+    <section class="bg-gray-50 dark:bg-gray-900">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8" id="loginForm">
+                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        Accediiiiii
+                    </h1>
+                    <form class="space-y-4 md:space-y-6" action="#">
+                        <div>
+                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                            <input type="text" name="userName" id="userName" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="La tua username" required="">
+                        </div>
+                        <div>
+                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                            <input type="password" name="password" id="userPass" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                        </div>
+                        <button class="bg-slate-800 text-white w-full rounded p-2" id="bottone">Accedi</button>
+                    </form>
+                </div>
+                <div id="caricamentoIncorso" class="flex flex-col hidden p-3 justify-center items-center gap-5 py-10">
+                    <h3 id="mess1">Accesso in corso...</h3>
+                    <h3 id="mess2" class="hidden">Ci siamo quasi...</h3>
+                    <h3 id="mess3" class="hidden">Ancora un po...</h3>
+                    <h3 id="mess4" class="hidden text-center">Porta pazienza, il sistema è lento perché Digitazon non ha incluso <strong>SVELTE</strong> nel proprio corso, fossi in te farei un reclamo!</h3>
+                    <h3 id="mess5" class="hidden">Let'sss Goooo mutherfuckeeeeerrr</h3>
+
+                        <div role="status" id="loader">
+                            <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                                <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                            </svg>
+                            <span class="sr-only">Loading...</span>
+                        </div>
+
+                </div>
+                <div id="loggato" class="hidden p-5 flex flex-col justify-center items-center">
+                    Ok ti sei loggato correttamente!
+                </div>
+                <div id="errore" class="hidden p-5 flex flex-col justify-center items-center">
+                    Erroreee
+                </div>
+            </div>
+        </div>
+      </section>
+
+      <script>
+
+        let arrUsers = [
+            {username: 'eliaspower', pass: 'cicalino'},
+            {username: 'eliasnopower', pass: 'nocicalino'}
+        ]
+
+        const bottone = document.getElementById('bottone');
+        const loginForm = document.getElementById('loginForm')
+        const caricamentoIncorso = document.getElementById('caricamentoIncorso')
+        let counter = 0
+        const mess1 = document.getElementById('mess1')
+        const mess2 = document.getElementById('mess2')
+        const mess3 = document.getElementById('mess3')
+        const mess4 = document.getElementById('mess4')
+        const mess5 = document.getElementById('mess5')
+        const loader = document.getElementById('loader')
+        const loggato = document.getElementById('loggato')
+        const errore = document.getElementById('errore')
+
+
+
+        bottone.addEventListener('click', (e) => {
+            e.preventDefault()
+            const userName = document.getElementById('userName').value;
+            const userPass = document.getElementById('userPass').value;
+            if (counter < 3) {
+                if(arrUsers.find((el) => userName == el.username && userPass == el.pass)) {
+                loginForm.classList.add('hidden')
+                caricamentoIncorso.classList.toggle('hidden')
+                counter = 0;
+                    
+                    setTimeout(() => {
+                        mess1.classList.toggle('hidden')
+                        mess2.classList.toggle('hidden')
+                    }, 2000)
+                    
+                    setTimeout(() => {
+                        mess2.classList.toggle('hidden')
+                        mess3.classList.toggle('hidden')
+                    }, 4000)
+                
+                    setTimeout(() => {
+                        mess3.classList.toggle('hidden')
+                        mess4.classList.toggle('hidden')
+                    }, 6000)
+                    
+                    setTimeout(() => {
+                        mess4.classList.toggle('hidden')
+                        mess5.classList.toggle('hidden')
+                    }, 10000)
+                    setTimeout(() => {
+                        loader.classList.toggle('hidden')
+                        mess5.classList.toggle('hidden')
+                        loggato.classList.toggle('hidden')
+                    }, 11000)
+                } else {
+                    counter++
+                }
+            } else {
+                loginForm.classList.toggle('hidden')
+                errore.classList.toggle('hidden')
+            }
+        })
+
+      </script>
+</body>
+</html>
